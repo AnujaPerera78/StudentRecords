@@ -5,6 +5,7 @@
  */
 
 // Use array not array list 
+// Assume length of array to be 10  
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +42,7 @@ public class StudentRecords extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblTitle.setText("Integer Sums");
         lblName = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        txtNum = new javax.swing.JTextField();
         scpOutputArea = new javax.swing.JScrollPane();
         txaOutputArea = new javax.swing.JTextArea();
         btnAdd = new javax.swing.JButton();
@@ -65,7 +66,17 @@ public class StudentRecords extends javax.swing.JFrame {
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
+    
+                while (true) {
+                
+                int newNum = Integer.parseInt(txtNum.getText()); 
+                System.out.print(newNum);
+                int[] nums = {newNum};
+                }
             }
+         
+           
+            
         });
 
         btnRemove.setText("Remove");
@@ -124,7 +135,7 @@ public class StudentRecords extends javax.swing.JFrame {
         				.addGroup(layout.createSequentialGroup()
         					.addComponent(lblName)
         					.addGap(18)
-        					.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(txtNum, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
         				.addGroup(layout.createSequentialGroup()
         					.addComponent(scpOutputArea, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
@@ -151,7 +162,7 @@ public class StudentRecords extends javax.swing.JFrame {
         			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblName)
-        				.addComponent(txtName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(txtNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.UNRELATED)
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
         				.addComponent(scpOutputArea, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
@@ -184,14 +195,14 @@ public class StudentRecords extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         String temp;
-        temp = txtName.getText();
+        temp = txtNum.getText();
         names.add(temp);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
         String temp;
-        temp = txtName.getText();
+        temp = txtNum.getText();
         names.remove(temp);
     }//GEN-LAST:event_btnRemoveActionPerformed
 
@@ -259,5 +270,5 @@ public class StudentRecords extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JScrollPane scpOutputArea;
     private javax.swing.JTextArea txaOutputArea;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNum;
 }
