@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 
+// Use array not array list 
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
 
 /**
  *
@@ -31,23 +39,23 @@ public class StudentRecords extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
+        lblTitle.setText("Integer Sums");
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         scpOutputArea = new javax.swing.JScrollPane();
         txaOutputArea = new javax.swing.JTextArea();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        btnSort = new javax.swing.JButton();
-        btnList = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
+        btnLise = new javax.swing.JButton();
+        btnSumAll = new javax.swing.JButton();
+        btnSumEven = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblTitle.setText("Student Records");
+        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24));
 
         lblName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblName.setText("Name:");
+        lblName.setText("Enter Integer");
 
         txaOutputArea.setColumns(20);
         txaOutputArea.setRows(5);
@@ -67,78 +75,103 @@ public class StudentRecords extends javax.swing.JFrame {
             }
         });
 
-        btnSort.setText("Sort");
-        btnSort.addActionListener(new java.awt.event.ActionListener() {
+        btnLise.setText("List");
+        btnLise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSortActionPerformed(evt);
             }
         });
 
-        btnList.setText("List");
-        btnList.addActionListener(new java.awt.event.ActionListener() {
+        btnSumAll.setText("Sum All");
+        btnSumAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListActionPerformed(evt);
             }
         });
 
-        btnExit.setText("Exit");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
+        btnSumEven.setText("Sum Even");
+        btnSumEven.addActionListener(new java.awt.event.ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+           
+        });
+        
+        JButton btnSumOdd = new JButton("Sum Odd");
+        
+        JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnExit.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+        	 
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(lblTitle))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblName)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(scpOutputArea, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addGap(28, 28, 28))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(31)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(lblName)
+        					.addGap(18)
+        					.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(scpOutputArea, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        						.addComponent(btnExit, 0, 0, Short.MAX_VALUE)
+        						.addComponent(btnSumOdd, 0, 0, Short.MAX_VALUE)
+        						.addComponent(btnRemove, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(btnAdd, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(btnLise, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(btnSumAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(btnSumEven, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        					.addGap(10)))
+        			.addGap(18))
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(128)
+        			.addComponent(lblTitle)
+        			.addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTitle)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scpOutputArea, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRemove)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSort)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnList)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExit)))
-                .addContainerGap(22, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(lblTitle)
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblName)
+        				.addComponent(txtName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(scpOutputArea, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(btnAdd)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnRemove)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnLise)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnSumAll)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnSumEven)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnSumOdd)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnExit)))
+        			.addContainerGap(14, Short.MAX_VALUE))
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -181,7 +214,6 @@ public class StudentRecords extends javax.swing.JFrame {
 
     
     
-    
     /**
      * @param args the command line arguments
      */
@@ -219,14 +251,13 @@ public class StudentRecords extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnList;
+    private javax.swing.JButton btnSumEven;
+    private javax.swing.JButton btnSumAll;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JButton btnSort;
+    private javax.swing.JButton btnLise;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JScrollPane scpOutputArea;
     private javax.swing.JTextArea txaOutputArea;
     private javax.swing.JTextField txtName;
-    // End of variables declaration//GEN-END:variables
 }
