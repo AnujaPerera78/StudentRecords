@@ -8,6 +8,9 @@
 // Assume length of array to be 10  
 // State Assumptions 
 
+// Min and Max Num 
+// Scrollable numbers 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -21,9 +24,10 @@ import javax.swing.JButton;
  * @author Chi
  */
 public class SumElements extends javax.swing.JFrame {
-	
+	int count = 0; 
 	int arrayLength = 20; 
 	int[] numElms = new int[arrayLength];
+	int [] copyNumElms = new int[arrayLength];
 
     private ArrayList<String> names = new ArrayList<String>();
     
@@ -69,21 +73,14 @@ public class SumElements extends javax.swing.JFrame {
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
-    
-               
-                int newNum = Integer.parseInt(txtNum.getText()); 
-               
-                for (int i=0; i<arrayLength; i++) {
-                	
-                	if (numElms[i] == 0) {
-                		numElms [i] = newNum;  
-                		break;
-                		 
-                	}
-                	
-                }
                 
-               printArray(); 
+                int newNum = Integer.parseInt(txtNum.getText()); 
+                
+                numElms[count] = newNum; 
+                count++; 
+                
+                printArray();
+             
             }
          
            
@@ -94,6 +91,8 @@ public class SumElements extends javax.swing.JFrame {
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
+                count --; 
+                printArray(); 
             }
         });
 
@@ -215,10 +214,13 @@ public class SumElements extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListActionPerformed
 
     
-    public void printArray() {
-    	String output = "";  
-    	for (int element: numElms) {
-            
+    public void printArray() {  
+    	String output = "";
+    	String temp = ""; 
+    	for (int i=0; i<count; i++) {
+    		output = (temp + numElms[i] + "\n");
+    		temp = output; 
+    		txtOutputArea.setText(output);
         }
     	
       }
