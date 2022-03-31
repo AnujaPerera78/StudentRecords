@@ -11,6 +11,8 @@
 
 // Assumes user will at max enter 20 numbers
 
+// Do we submit zip file or just java file 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
