@@ -10,7 +10,10 @@
  */
 
 // Assumes user will at max enter 10 numbers
-
+// Num input is always removeable 
+// Can you enter repreated nums 
+// NULL 
+// Check Range of nums you can enter
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -89,22 +92,41 @@ public class AddElement extends javax.swing.JFrame {
 		btnRemove.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnRemoveActionPerformed(evt);
-				
-				boolean run = true; 
-				if (count == 1 ) {
-					txtOutputArea.setText(" "); 
+
+				int newNum = Integer.parseInt(txtNum.getText());
+
+				boolean run = true;
+				if (count == 1) {
+					txtOutputArea.setText(" ");
 					run = false;
-					count --; 
+					count--;
 				}
 				if (count == 0) {
 					textSumField.setText("No numbers to remove");
-				} 
-				else if (run) {
-					count--;
-					printArray();
-					
 				}
-				System.out.println(count); 
+				if (run) {
+					for (int i = 0; i < ARRAY_LENGTH; i++) {
+						if (newNum == numElms[i]) {
+							numElms[i] = 0;
+							count--;
+						}
+
+					}
+					printArray();
+				}
+
+				int total = 0;
+
+				for (int i = 0; i < count; i++) {
+					total += numElms[i];
+
+				}
+
+				if ((numElms[0]) * count == total) {
+					txtOutputArea.setText(" ");
+					count = 0;
+				}
+
 			}
 		});
 
@@ -261,10 +283,12 @@ public class AddElement extends javax.swing.JFrame {
 	public void printArray() {
 		String output = "";
 		String temp = "";
-		for (int i = 0; i < count; i++) {
-			output = (temp + numElms[i] + "\n");
-			temp = output;
-			txtOutputArea.setText(output);
+		for (int i = 0; i < ARRAY_LENGTH; i++) {
+			if (numElms[i] != 0) {
+				output = (temp + numElms[i] + "\n");
+				temp = output;
+				txtOutputArea.setText(output);
+			}
 		}
 
 	}
