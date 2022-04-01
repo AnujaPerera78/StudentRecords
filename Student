@@ -30,6 +30,7 @@ public class AddElement extends javax.swing.JFrame {
 	int count = 0;
 	int ARRAY_LENGTH = 10;
 	int[] numElms = new int[ARRAY_LENGTH];
+	int [] copyNumElms = new int [ARRAY_LENGTH];
 
 	private ArrayList<String> names = new ArrayList<String>();
 
@@ -125,6 +126,7 @@ public class AddElement extends javax.swing.JFrame {
 				if ((numElms[0]) * count == total) {
 					txtOutputArea.setText(" ");
 					count = 0;
+					numElms = copyNumElms; 
 				}
 
 			}
