@@ -76,8 +76,13 @@ public class AddElement extends javax.swing.JFrame {
 					if (newNum < 0 || newNum > 1000000) {
 						textSumField.setText("Enter numbers between 0-1000000");
 					} else {
+						
 						numElms[count] = newNum;
 						count++;
+						
+						
+						
+						
 					}
 
 					printArray();
@@ -96,7 +101,8 @@ public class AddElement extends javax.swing.JFrame {
 				btnRemoveActionPerformed(evt);
 
 				int newNum = Integer.parseInt(txtNum.getText());
-
+				
+				
 				boolean run = true;
 				if (count == 1) {
 					txtOutputArea.setText(" ");
@@ -107,16 +113,28 @@ public class AddElement extends javax.swing.JFrame {
 					textSumField.setText("No numbers to remove");
 				}
 				if (run) {
+					
+					
+					int indexless = 0; 
+					
 					for (int i = 0; i < ARRAY_LENGTH; i++) {
-						if (newNum == numElms[i]) {
-							numElms[i] = 0;
-							count--;
+						if (numElms[i] != newNum ) {
+							 copyNumElms[indexless] = numElms [i]; 
+							 indexless ++; 
 						}
-
 					}
-					printArray();
+					
+					for (int i = 0; i < ARRAY_LENGTH; i++) {
+							 numElms[i] = copyNumElms [i]; 
+					}
+					
+					printArray(); 
+					
+					
+				
 				}
 
+				
 				int total = 0;
 
 				for (int i = 0; i < count; i++) {
@@ -126,8 +144,7 @@ public class AddElement extends javax.swing.JFrame {
 
 				if ((numElms[0]) * count == total) {
 					txtOutputArea.setText(" ");
-					count = 0;
-					numElms = copyNumElms; 
+					count = 0; 
 				}
 
 			}
@@ -136,7 +153,7 @@ public class AddElement extends javax.swing.JFrame {
 		btnSumAll.setText("Sum All");
 		btnSumAll.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnListActionPerformed(evt);
+				
 
 				int total = 0;
 
@@ -145,6 +162,9 @@ public class AddElement extends javax.swing.JFrame {
 
 				}
 				textSumField.setText("The sum of all numbers: " + total);
+				
+				printArray(); 
+				
 
 			}
 		});
@@ -163,6 +183,20 @@ public class AddElement extends javax.swing.JFrame {
 					}
 				}
 				textSumField.setText("Sum of all even: " + total);
+				
+				String output = "";
+				String temp = "";
+				for (int i = 0; i < numElms.length; i++) {
+					if (numElms [i] % 2 ==0 && numElms[i] != 0) {
+						output = (temp + numElms[i] + "\n");
+						temp = output;
+						txtOutputArea.setText(output);
+					}
+				}
+				
+				if( total ==0 ) {
+					txtOutputArea.setText(" No even numbers ");
+				}
 			}
 
 		});
@@ -179,6 +213,22 @@ public class AddElement extends javax.swing.JFrame {
 					}
 				}
 				textSumField.setText("The sum of all odd: " + total);
+				
+				String output = "";
+				String temp = "";
+				
+				for (int i = 0; i < numElms.length; i++) {
+					if (numElms [i] % 2 !=0 && numElms[i] != 0) {
+						output = (temp + numElms[i] + "\n");
+						temp = output;
+						txtOutputArea.setText(output);
+					}
+				}
+				
+				if( total ==0 ) {
+					txtOutputArea.setText(" No odd numbers ");
+				}
+				
 			}
 
 		});
@@ -271,22 +321,11 @@ public class AddElement extends javax.swing.JFrame {
 		names.remove(temp);
 	}
 
-	private void btnListActionPerformed(java.awt.event.ActionEvent evt) {
-
-		String a;
-		String temp = "";
-		Iterator stepper = names.iterator();
-		while (stepper.hasNext()) {
-			a = (String) stepper.next();
-			temp = temp + a + "\n";
-		}
-		txtOutputArea.setText(temp);
-	}
-
+	
 	public void printArray() {
 		String output = "";
 		String temp = "";
-		for (int i = 0; i < ARRAY_LENGTH; i++) {
+		for (int i = 0; i < numElms.length; i++) {
 			if (numElms[i] != 0) {
 				output = (temp + numElms[i] + "\n");
 				temp = output;
