@@ -1,3 +1,5 @@
+//asdasd
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -10,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
 
 public class StudentGrades extends JFrame {
 
@@ -20,7 +24,15 @@ public class StudentGrades extends JFrame {
 	private JTextField txtTest4;
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
-	private JTextField textField;
+	// private JTextPane txtOutput;
+	// Name too long 
+	// Test score too long
+	// Input string 
+	// Assumes two people will not have the same name
+
+	String[][] gradeBook = new String[15][5];
+
+	int numOfNames = 0;
 
 	/**
 	 * Launch the application.
@@ -42,50 +54,89 @@ public class StudentGrades extends JFrame {
 	 * Create the frame.
 	 */
 	public StudentGrades() {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 562, 481);
+		setBounds(100, 100, 545, 497);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblTitle = new JLabel("Student Grades");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblTitle.setBounds(214, -5, 133, 56);
 		contentPane.add(lblTitle);
-		
+
 		JLabel lblFirstName = new JLabel("First Name");
 		lblFirstName.setBounds(10, 56, 90, 35);
 		contentPane.add(lblFirstName);
-		
+
 		JLabel lblLastName = new JLabel("Last Name");
-		lblLastName.setBounds(242, 61, 59, 24);
+		lblLastName.setBounds(255, 56, 70, 30);
 		contentPane.add(lblLastName);
-		
+
 		JLabel lblTest1 = new JLabel("Test 1");
 		lblTest1.setBounds(10, 110, 59, 18);
 		contentPane.add(lblTest1);
-		
+
 		JLabel lblTest2 = new JLabel("Test 2");
 		lblTest2.setBounds(10, 156, 45, 13);
 		contentPane.add(lblTest2);
-		
+
 		JLabel lblTest3 = new JLabel("Test 3");
 		lblTest3.setBounds(10, 200, 45, 13);
 		contentPane.add(lblTest3);
-		
+
 		JLabel lblTest4 = new JLabel("Test 4");
-		lblTest4.setBounds(10, 245, 45, 13);
+		lblTest4.setBounds(10, 239, 45, 13);
 		contentPane.add(lblTest4);
-		
+
+		JTextPane txtOutput = new JTextPane();
+		txtOutput.setBounds(165, 173, 354, 280);
+		contentPane.add(txtOutput);
+
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
+
+				txtOutput.setText("");
+
+				String firstName = txtFirstName.getText();
+				String lastName = txtLastName.getText();
+
+				gradeBook[numOfNames][0] = firstName + lastName;
+
+				String test1 = txtTest1.getText();
+				String test2 = txtTest2.getText();
+				String test3 = txtTest3.getText();
+				String test4 = txtTest4.getText();
+
+				gradeBook[numOfNames][1] = test1;
+				gradeBook[numOfNames][2] = test2;
+				gradeBook[numOfNames][3] = test3;
+				gradeBook[numOfNames][4] = test4;
+
+				// Loop through all rows
+
+				for (int i = 0; i < 14; i++) {
+
+					// Loop through all elements of current row
+					for (int j = 0; j < 5; j++) {
+						System.out.print(gradeBook[i][j] + " ");
+
+					}
+					System.out.println();
+				}
+
+				System.out.println();
+				numOfNames++;
+
 			}
 		});
 		btnAdd.setBounds(214, 109, 85, 21);
 		contentPane.add(btnAdd);
-		
+
 		JButton btnStudentAverage = new JButton("Student Average");
 		btnStudentAverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,56 +144,67 @@ public class StudentGrades extends JFrame {
 		});
 		btnStudentAverage.setBounds(323, 109, 133, 21);
 		contentPane.add(btnStudentAverage);
-		
+
 		JButton btnList = new JButton("List");
 		btnList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				String output = "";
+				String tempOutput = "Format: Name, Test 1, Test 2, Test 3, Test 4 \n \n";
+				
+				for (int i = 0; i < numOfNames; i++) {
+					if ((gradeBook[numOfNames - 1][0] != null)) {
+						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "  " + gradeBook[i][2] + "  "
+								+ gradeBook[i][3] + "  " + gradeBook[i][4] + "\n");
+						txtOutput.setText(output);
+						tempOutput = output;
+					}
+
+				}
+
 			}
+
 		});
-		btnList.setBounds(214, 152, 85, 21);
+		btnList.setBounds(214, 141, 85, 21);
 		contentPane.add(btnList);
-		
-		JButton btnTestAverage = new JButton("TestAverage");
+
+		JButton btnTestAverage = new JButton("Test Average");
 		btnTestAverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnTestAverage.setBounds(323, 152, 134, 21);
+		btnTestAverage.setBounds(323, 141, 134, 21);
 		contentPane.add(btnTestAverage);
-		
+
 		txtTest1 = new JTextField();
 		txtTest1.setBounds(59, 110, 96, 19);
 		contentPane.add(txtTest1);
 		txtTest1.setColumns(10);
-		
+
 		txtTest2 = new JTextField();
 		txtTest2.setBounds(59, 153, 96, 19);
 		contentPane.add(txtTest2);
 		txtTest2.setColumns(10);
-		
+
 		txtTest3 = new JTextField();
 		txtTest3.setColumns(10);
 		txtTest3.setBounds(59, 197, 96, 19);
 		contentPane.add(txtTest3);
-		
+
 		txtTest4 = new JTextField();
 		txtTest4.setColumns(10);
-		txtTest4.setBounds(59, 242, 96, 19);
+		txtTest4.setBounds(59, 236, 96, 19);
 		contentPane.add(txtTest4);
-		
+
 		txtFirstName = new JTextField();
 		txtFirstName.setColumns(10);
 		txtFirstName.setBounds(77, 64, 96, 19);
 		contentPane.add(txtFirstName);
-		
+
 		txtLastName = new JTextField();
 		txtLastName.setColumns(10);
-		txtLastName.setBounds(311, 64, 96, 19);
+		txtLastName.setBounds(322, 62, 96, 19);
 		contentPane.add(txtLastName);
-		
-		textField = new JTextField();
-		textField.setBounds(191, 197, 291, 220);
-		contentPane.add(textField);
-		textField.setColumns(10);
+
 	}
 }
