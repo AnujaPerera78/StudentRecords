@@ -1,379 +1,148 @@
-/*
- * Displays the sum of certain elements in an array 
- * 
- * modified     20220331
- * date         20220331
- * @filename	AddElement.java
- * @author      Anuja Perera
- * @version     1.0
- * @see         ICS4U 2.2 Activity Sum Elements
- */
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
-// Assumes user will at max enter 10 numbers
-// Num input is always removeable 
-// Can you enter repreated nums 
-// NULL 
-// Check Range of nums you can enter
-// Comments 
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import javax.swing.JTextField;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class AddElement extends javax.swing.JFrame {
-	int count = 0;
-	int ARRAY_LENGTH = 10;
-	int[] numElms = new int[ARRAY_LENGTH];
-	int [] copyNumElms = new int [ARRAY_LENGTH];
+public class StudentGrades extends JFrame {
 
-	private ArrayList<String> names = new ArrayList<String>();
+	private JPanel contentPane;
+	private JTextField txtTest1;
+	private JTextField txtTest2;
+	private JTextField txtTest3;
+	private JTextField txtTest4;
+	private JTextField txtFirstName;
+	private JTextField txtLastName;
+	private JTextField textField;
 
-	public AddElement() {
-		initComponents();
-	}
-
-	@SuppressWarnings("unchecked")
-
-	private void initComponents() {
-
-		lblTitle = new javax.swing.JLabel();
-		lblTitle.setText("Integer Sums");
-		lblName = new javax.swing.JLabel();
-		txtNum = new javax.swing.JTextField();
-		scpOutputArea = new javax.swing.JScrollPane();
-		txtOutputArea = new javax.swing.JTextArea();
-		txtOutputArea.setEditable(false);
-		btnAdd = new javax.swing.JButton();
-		btnRemove = new javax.swing.JButton();
-		btnSumAll = new javax.swing.JButton();
-		btnSumEven = new javax.swing.JButton();
-
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-		lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24));
-
-		lblName.setFont(new java.awt.Font("Tahoma", 0, 14));
-		lblName.setText("Enter Integer");
-
-		txtOutputArea.setColumns(20);
-		txtOutputArea.setRows(5);
-		scpOutputArea.setViewportView(txtOutputArea);
-
-		btnAdd.setText("Add");
-		btnAdd.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnAddActionPerformed(evt);
-
-				try {
-					int newNum = Integer.parseInt(txtNum.getText());
-					if (newNum < 0 || newNum > 1000000) {
-						textSumField.setText("Enter numbers between 0-1000000");
-					} else {
-						
-						numElms[count] = newNum;
-						count++;
-						
-						
-						
-						
-					}
-
-					printArray();
-
-				} catch (NumberFormatException ex) {
-					textSumField.setText("Enter numbers in correct format");
-				}
-
-			}
-
-		});
-
-		btnRemove.setText("Remove");
-		btnRemove.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnRemoveActionPerformed(evt);
-
-				int newNum = Integer.parseInt(txtNum.getText());
-				
-				
-				boolean run = true;
-				if (count == 1) {
-					txtOutputArea.setText(" ");
-					run = false;
-					count--;
-				}
-				if (count == 0) {
-					textSumField.setText("No numbers to remove");
-				}
-				if (run) {
-					
-					
-					int indexless = 0; 
-					
-					for (int i = 0; i < ARRAY_LENGTH; i++) {
-						if (numElms[i] != newNum ) {
-							 copyNumElms[indexless] = numElms [i]; 
-							 indexless ++; 
-						}
-					}
-					
-					for (int i = 0; i < ARRAY_LENGTH; i++) {
-							 numElms[i] = copyNumElms [i]; 
-					}
-					
-					printArray(); 
-					
-					
-				
-				}
-
-				
-				int total = 0;
-
-				for (int i = 0; i < count; i++) {
-					total += numElms[i];
-
-				}
-
-				if ((numElms[0]) * count == total) {
-					txtOutputArea.setText(" ");
-					count = 0; 
-				}
-
-			}
-		});
-
-		btnSumAll.setText("Sum All");
-		btnSumAll.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				
-
-				int total = 0;
-
-				for (int i = 0; i < count; i++) {
-					total += numElms[i];
-
-				}
-				textSumField.setText("The sum of all numbers: " + total);
-				
-				printArray(); 
-				
-
-			}
-		});
-
-		btnSumEven.setText("Sum Even");
-		btnSumEven.addActionListener(new java.awt.event.ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				int total = 0;
-
-				for (int i = 0; i < count; i++) {
-					if (numElms[i] % 2 == 0) {
-						total += numElms[i];
-					}
-				}
-				textSumField.setText("Sum of all even: " + total);
-				
-				String output = "";
-				String temp = "";
-				for (int i = 0; i < numElms.length; i++) {
-					if (numElms [i] % 2 ==0 && numElms[i] != 0) {
-						output = (temp + numElms[i] + "\n");
-						temp = output;
-						txtOutputArea.setText(output);
-					}
-				}
-				
-				if( total ==0 ) {
-					txtOutputArea.setText(" No even numbers ");
-				}
-			}
-
-		});
-
-		JButton btnSumOdd = new JButton("Sum Odd");
-		btnSumOdd.addActionListener(new java.awt.event.ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-
-				int total = 0;
-				for (int i = 0; i < count; i++) {
-					if (numElms[i] % 2 != 0) {
-						total += numElms[i];
-					}
-				}
-				textSumField.setText("The sum of all odd: " + total);
-				
-				String output = "";
-				String temp = "";
-				
-				for (int i = 0; i < numElms.length; i++) {
-					if (numElms [i] % 2 !=0 && numElms[i] != 0) {
-						output = (temp + numElms[i] + "\n");
-						temp = output;
-						txtOutputArea.setText(output);
-					}
-				}
-				
-				if( total ==0 ) {
-					txtOutputArea.setText(" No odd numbers ");
-				}
-				
-			}
-
-		});
-
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnExit.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-
-		textSumField = new JTextField();
-		textSumField.setEditable(false);
-		textSumField.setColumns(10);
-
-		JLabel lblOutput = new JLabel("Output");
-		lblOutput.setFont(new Font("Tahoma", Font.PLAIN, 13));
-
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(128).addComponent(lblTitle).addContainerGap(137,
-						Short.MAX_VALUE))
-				.addGroup(layout.createSequentialGroup().addGap(31).addGroup(layout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup().addComponent(lblName).addGap(18).addComponent(txtNum,
-								GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(Alignment.TRAILING).addGroup(layout
-										.createSequentialGroup()
-										.addComponent(scpOutputArea, GroupLayout.PREFERRED_SIZE, 175,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 95, Short.MAX_VALUE))
-										.addGroup(layout.createSequentialGroup()
-												.addGroup(layout.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblOutput).addComponent(textSumField,
-																GroupLayout.PREFERRED_SIZE, 251,
-																GroupLayout.PREFERRED_SIZE))
-												.addGap(18)))
-								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(btnExit, 0, 0, Short.MAX_VALUE)
-										.addComponent(btnSumOdd, 0, 0, Short.MAX_VALUE)
-										.addComponent(btnRemove, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(btnAdd, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(btnSumAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(btnSumEven, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE))
-								.addGap(10)))
-						.addGap(18)));
-		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup()
-				.addContainerGap().addComponent(lblTitle).addGap(18)
-				.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(lblName).addComponent(txtNum,
-						GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup()
-						.addComponent(scpOutputArea, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblOutput)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(textSumField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addGroup(layout.createSequentialGroup().addComponent(btnAdd)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnRemove).addGap(35)
-								.addComponent(btnSumAll).addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnSumEven).addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnSumOdd).addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnExit)))
-				.addContainerGap(33, Short.MAX_VALUE)));
-		getContentPane().setLayout(layout);
-
-		pack();
-	}
-
-	private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
-
-		String temp;
-		temp = txtNum.getText();
-		names.add(temp);
-	}
-
-	private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {
-
-		String temp;
-		temp = txtNum.getText();
-		names.remove(temp);
-	}
-
-	
-	public void printArray() {
-		String output = "";
-		String temp = "";
-		for (int i = 0; i < numElms.length; i++) {
-			if (numElms[i] != 0) {
-				output = (temp + numElms[i] + "\n");
-				temp = output;
-				txtOutputArea.setText(output);
-			}
-		}
-
-	}
-
-	public static void main(String args[]) {
-
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(AddElement.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(AddElement.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(AddElement.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(AddElement.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		}
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new AddElement().setVisible(true);
+				try {
+					StudentGrades frame = new StudentGrades();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
-
 	}
 
-	private javax.swing.JButton btnAdd;
-	private javax.swing.JButton btnSumEven;
-	private javax.swing.JButton btnSumAll;
-	private javax.swing.JButton btnRemove;
-	private javax.swing.JLabel lblName;
-	private javax.swing.JLabel lblTitle;
-	private javax.swing.JScrollPane scpOutputArea;
-	private javax.swing.JTextArea txtOutputArea;
-	private javax.swing.JTextField txtNum;
-	private JTextField textSumField;
+	/**
+	 * Create the frame.
+	 */
+	public StudentGrades() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 562, 481);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblTitle = new JLabel("Student Grades");
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTitle.setBounds(214, -5, 133, 56);
+		contentPane.add(lblTitle);
+		
+		JLabel lblFirstName = new JLabel("First Name");
+		lblFirstName.setBounds(10, 56, 90, 35);
+		contentPane.add(lblFirstName);
+		
+		JLabel lblLastName = new JLabel("Last Name");
+		lblLastName.setBounds(242, 61, 59, 24);
+		contentPane.add(lblLastName);
+		
+		JLabel lblTest1 = new JLabel("Test 1");
+		lblTest1.setBounds(10, 110, 59, 18);
+		contentPane.add(lblTest1);
+		
+		JLabel lblTest2 = new JLabel("Test 2");
+		lblTest2.setBounds(10, 156, 45, 13);
+		contentPane.add(lblTest2);
+		
+		JLabel lblTest3 = new JLabel("Test 3");
+		lblTest3.setBounds(10, 200, 45, 13);
+		contentPane.add(lblTest3);
+		
+		JLabel lblTest4 = new JLabel("Test 4");
+		lblTest4.setBounds(10, 245, 45, 13);
+		contentPane.add(lblTest4);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAdd.setBounds(214, 109, 85, 21);
+		contentPane.add(btnAdd);
+		
+		JButton btnStudentAverage = new JButton("Student Average");
+		btnStudentAverage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnStudentAverage.setBounds(323, 109, 133, 21);
+		contentPane.add(btnStudentAverage);
+		
+		JButton btnList = new JButton("List");
+		btnList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnList.setBounds(214, 152, 85, 21);
+		contentPane.add(btnList);
+		
+		JButton btnTestAverage = new JButton("TestAverage");
+		btnTestAverage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnTestAverage.setBounds(323, 152, 134, 21);
+		contentPane.add(btnTestAverage);
+		
+		txtTest1 = new JTextField();
+		txtTest1.setBounds(59, 110, 96, 19);
+		contentPane.add(txtTest1);
+		txtTest1.setColumns(10);
+		
+		txtTest2 = new JTextField();
+		txtTest2.setBounds(59, 153, 96, 19);
+		contentPane.add(txtTest2);
+		txtTest2.setColumns(10);
+		
+		txtTest3 = new JTextField();
+		txtTest3.setColumns(10);
+		txtTest3.setBounds(59, 197, 96, 19);
+		contentPane.add(txtTest3);
+		
+		txtTest4 = new JTextField();
+		txtTest4.setColumns(10);
+		txtTest4.setBounds(59, 242, 96, 19);
+		contentPane.add(txtTest4);
+		
+		txtFirstName = new JTextField();
+		txtFirstName.setColumns(10);
+		txtFirstName.setBounds(77, 64, 96, 19);
+		contentPane.add(txtFirstName);
+		
+		txtLastName = new JTextField();
+		txtLastName.setColumns(10);
+		txtLastName.setBounds(311, 64, 96, 19);
+		contentPane.add(txtLastName);
+		
+		textField = new JTextField();
+		textField.setBounds(191, 197, 291, 220);
+		contentPane.add(textField);
+		textField.setColumns(10);
+	}
 }
