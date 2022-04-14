@@ -1,6 +1,5 @@
-
 /**
- * Displays studentgrades using a 2d array 
+ * Displays student grades using a 2d array 
  * 
  * modified    	20220413
  * date         20220413
@@ -34,15 +33,19 @@ public class StudentGrades extends JFrame {
 	private JTextField txtTest4;
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
-	// Once num of names = 15 disable add button 
+	//
+	// Once num of names = 15 disable add button
 	// Name too long
-	// Test score too long
+	// Test score too big or too small
 	// Input string
 	// Assumes two people will not have the same name
 	// Add Remove Button
 	// Inputs and outputs should be double
 	// Student average requested not recognized
 	// Max and min values
+	// Add to list automatically 
+	// Check if they give empty test input
+	// Show all the students name and average 
 	String[][] gradeBook = new String[15][5];
 
 	int numOfNames = 0;
@@ -113,22 +116,63 @@ public class StudentGrades extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 
+				String firstName = "";
+				String lastName = "";
+
+				String test1 = "";
+				String test2 = "";
+				String test3 = "";
+				String test4 = "";
+
 				txtOutput.setText("");
+				try {
+					firstName = txtFirstName.getText();
+					lastName = txtLastName.getText();
 
-				String firstName = txtFirstName.getText();
-				String lastName = txtLastName.getText();
+					test1 = txtTest1.getText();
+					test2 = txtTest2.getText();
+					test3 = txtTest3.getText();
+					test4 = txtTest4.getText();
 
-				gradeBook[numOfNames][0] = firstName + lastName;
+				} catch (java.lang.NumberFormatException ex) {
 
-				String test1 = txtTest1.getText();
-				String test2 = txtTest2.getText();
-				String test3 = txtTest3.getText();
-				String test4 = txtTest4.getText();
+					txtOutput.setText("Please enter correct input");
+				}
 
-				gradeBook[numOfNames][1] = test1;
-				gradeBook[numOfNames][2] = test2;
-				gradeBook[numOfNames][3] = test3;
-				gradeBook[numOfNames][4] = test4;
+				if (test1.length() > 3 || test1.length() < 1) {
+					txtOutput.setText("Please eneter tests in correct format");
+
+				}
+
+				else if (test1.length() > 3 || test1.length() < 1) {
+					txtOutput.setText("Please eneter tests in correct format");
+
+				}
+
+				else if (test1.length() > 3 || test1.length() < 1) {
+					txtOutput.setText("Please eneter tests in correct format");
+
+				}
+
+				else if (test1.length() > 3 || test1.length() < 1) {
+					txtOutput.setText("Please eneter tests in correct format");
+
+				} else if (firstName.length() > 16 || firstName.length() < 1) {
+
+					txtOutput.setText("Please enter a name between 0-16 chars long");
+				} else if (lastName.length() > 16 || lastName.length() < 1) {
+
+					txtOutput.setText("Please enter a name between 0-16 chars long");
+				}
+
+				else {
+					gradeBook[numOfNames][0] = firstName + lastName;
+					gradeBook[numOfNames][1] = test1;
+					gradeBook[numOfNames][2] = test2;
+					gradeBook[numOfNames][3] = test3;
+					gradeBook[numOfNames][4] = test4;
+
+				}
 
 				// Loop through all rows
 
@@ -144,6 +188,9 @@ public class StudentGrades extends JFrame {
 
 				System.out.println();
 				numOfNames++;
+				if (numOfNames == 15) {
+					btnAdd.setEnabled(false);
+				}
 
 			}
 		});
