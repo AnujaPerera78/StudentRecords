@@ -1,4 +1,14 @@
-//asdasd
+
+/**
+ * Displays studentgrades using a 2d array 
+ * 
+ * modified    	20220413
+ * date         20220413
+ * @filename    StudentGrades.java
+ * @author      Anuja Perera
+ * @version     1.0
+ * @see         ICS4U A11
+ */
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -24,12 +34,15 @@ public class StudentGrades extends JFrame {
 	private JTextField txtTest4;
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
-	// private JTextPane txtOutput;
-	// Name too long 
+	// Once num of names = 15 disable add button 
+	// Name too long
 	// Test score too long
-	// Input string 
+	// Input string
 	// Assumes two people will not have the same name
-
+	// Add Remove Button
+	// Inputs and outputs should be double
+	// Student average requested not recognized
+	// Max and min values
 	String[][] gradeBook = new String[15][5];
 
 	int numOfNames = 0;
@@ -140,6 +153,29 @@ public class StudentGrades extends JFrame {
 		JButton btnStudentAverage = new JButton("Student Average");
 		btnStudentAverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				String firstName = txtFirstName.getText();
+				String lastName = txtLastName.getText();
+
+				String check = firstName + lastName;
+				double studentAverage = 0;
+				for (int i = 0; i < numOfNames; i++) {
+
+					if (gradeBook[i][0].equals(check)) {
+
+						double total = 0;
+						total += Double.parseDouble((gradeBook[i][1]));
+						total += Double.parseDouble((gradeBook[i][2]));
+						total += Double.parseDouble((gradeBook[i][3]));
+						total += Double.parseDouble((gradeBook[i][4]));
+						studentAverage = total / 4;
+						txtOutput.setText("Student Average:" + studentAverage);
+					}
+				}
+				if (studentAverage == 0) {
+					txtOutput.setText("Student does not exist");
+				}
+
 			}
 		});
 		btnStudentAverage.setBounds(323, 109, 133, 21);
@@ -151,11 +187,11 @@ public class StudentGrades extends JFrame {
 
 				String output = "";
 				String tempOutput = "Format: Name, Test 1, Test 2, Test 3, Test 4 \n \n";
-				
+
 				for (int i = 0; i < numOfNames; i++) {
 					if ((gradeBook[numOfNames - 1][0] != null)) {
-						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "  " + gradeBook[i][2] + "  "
-								+ gradeBook[i][3] + "  " + gradeBook[i][4] + "\n");
+						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "  " + gradeBook[i][2]
+								+ "  " + gradeBook[i][3] + "  " + gradeBook[i][4] + "\n");
 						txtOutput.setText(output);
 						tempOutput = output;
 					}
@@ -171,6 +207,48 @@ public class StudentGrades extends JFrame {
 		JButton btnTestAverage = new JButton("Test Average");
 		btnTestAverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				double total = 0;
+				double test1average = 0;
+				double test2average = 0;
+				double test3average = 0;
+				double test4average = 0;
+				String output = "";
+				String tempOutput = "Average rounded down to nearest whole number: \n";
+
+				for (int i = 0; i < numOfNames; i++) {
+					total += Double.parseDouble((gradeBook[i][1]));
+				}
+				test1average = (Math.round(total) / numOfNames);
+				output = (tempOutput + "Test 1 Average: " + test1average + "\n");
+				tempOutput = output;
+				total = 0;
+
+				for (int i = 0; i < numOfNames; i++) {
+					total += Double.parseDouble((gradeBook[i][2]));
+				}
+
+				test2average = (Math.round(total) / numOfNames);
+				output = (tempOutput + "Test 2 Average: " + test2average + "\n");
+				tempOutput = output;
+				total = 0;
+
+				for (int i = 0; i < numOfNames; i++) {
+					total += Double.parseDouble((gradeBook[i][3]));
+				}
+
+				test3average = (Math.round(total) / numOfNames);
+				output = (tempOutput + "Test 3 Average: " + test3average + "\n");
+				tempOutput = output;
+				total = 0;
+
+				for (int i = 0; i < numOfNames; i++) {
+					total += Double.parseDouble((gradeBook[i][4]));
+				}
+				test4average = (Math.round(total) / numOfNames);
+				output = (tempOutput + "Test 4 Average: " + test4average + "\n");
+
+				txtOutput.setText(output);
+
 			}
 		});
 		btnTestAverage.setBounds(323, 141, 134, 21);
