@@ -1,3 +1,4 @@
+
 /**
  * Displays student grades using a 2d array 
  * 
@@ -26,6 +27,8 @@ import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JEditorPane;
 import javax.swing.JList;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class StudentGrades extends JFrame {
 
@@ -36,25 +39,22 @@ public class StudentGrades extends JFrame {
 	private JTextField txtTest4;
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
-	
+
 	String test1 = "";
 	String test2 = "";
 	String test3 = "";
 	String test4 = "";
-	
-	//
-	// Once num of names = 15 disable add button
-	// Name too long
+
 	// Test score too big or too small
 	// Input string
 	// Assumes two people will not have the same name
 	// Add Remove Button
 	// Inputs and outputs should be double
-	// Student average requested not recognized
 	// Max and min values
-	// Add to list automatically 
+	// Add to list automatically
 	// Check if they give empty test input
-	// Show all the students name and average 
+	// Remove Debugging 
+	
 	String[][] gradeBook = new String[15][5];
 
 	int numOfNames = 0;
@@ -115,12 +115,15 @@ public class StudentGrades extends JFrame {
 		JLabel lblTest4 = new JLabel("Test 4");
 		lblTest4.setBounds(10, 239, 45, 13);
 		contentPane.add(lblTest4);
-
-		JTextPane txtOutput = new JTextPane();
-		txtOutput.setEditable(false);
-		txtOutput.setBounds(165, 173, 354, 280);
-		contentPane.add(txtOutput);
-
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(189, 173, 316, 274);
+		contentPane.add(scrollPane_1);
+		
+		JTextArea txtOutput = new JTextArea();
+		scrollPane_1.setViewportView(txtOutput);
+		
+		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 
@@ -128,8 +131,6 @@ public class StudentGrades extends JFrame {
 
 				String firstName = "";
 				String lastName = "";
-
-				
 
 				txtOutput.setText("");
 				try {
@@ -178,8 +179,25 @@ public class StudentGrades extends JFrame {
 					gradeBook[numOfNames][2] = test2;
 					gradeBook[numOfNames][3] = test3;
 					gradeBook[numOfNames][4] = test4;
+					numOfNames++; 
 
 				}
+				
+				
+				
+				String output = "";
+				String tempOutput = "Format: Name, Test 1, Test 2, Test 3, Test 4 \n \n";
+
+				for (int i = 0; i < numOfNames; i++) {
+					if ((gradeBook[numOfNames - 1][0] != null)) {
+						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "%   " + gradeBook[i][2]
+								+ "%   " + gradeBook[i][3] + "%   " + gradeBook[i][4] + "% \n");
+						txtOutput.setText(output);
+						tempOutput = output;
+					}
+
+				}
+				
 
 				// Loop through all rows
 
@@ -194,7 +212,7 @@ public class StudentGrades extends JFrame {
 				}
 
 				System.out.println();
-				numOfNames++;
+				;
 				if (numOfNames == 15) {
 					btnAdd.setEnabled(false);
 				}
@@ -223,8 +241,9 @@ public class StudentGrades extends JFrame {
 						total += Double.parseDouble((gradeBook[i][3]));
 						total += Double.parseDouble((gradeBook[i][4]));
 						studentAverage = total / 4;
-						studentAverage =Math.round(studentAverage*100.0)/100.0;
-						txtOutput.setText("Student Average: " + studentAverage + "%" + "\n" + "Test1: " + test1 + "   Test2: " + test2 + "   Test3: " + test3 + "   Test4: " + test4);
+						studentAverage = Math.round(studentAverage * 100.0) / 100.0;
+						txtOutput.setText("Student Average: " + studentAverage + "%" + "\n" + "Test1: " + test1
+								+ "%   Test2: " + test2 + "%   Test3: " + test3 + "%   Test4: " + test4 + "%");
 					}
 				}
 				if (studentAverage == 0) {
@@ -245,14 +264,13 @@ public class StudentGrades extends JFrame {
 
 				for (int i = 0; i < numOfNames; i++) {
 					if ((gradeBook[numOfNames - 1][0] != null)) {
-						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "  " + gradeBook[i][2]
-								+ "  " + gradeBook[i][3] + "  " + gradeBook[i][4] + "\n");
+						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "%   " + gradeBook[i][2]
+								+ "%   " + gradeBook[i][3] + "%   " + gradeBook[i][4] + "% \n");
 						txtOutput.setText(output);
 						tempOutput = output;
 					}
 
 				}
-
 			}
 
 		});
@@ -268,13 +286,13 @@ public class StudentGrades extends JFrame {
 				double test3average = 0;
 				double test4average = 0;
 				String output = "";
-				String tempOutput = "Average rounded down to nearest whole number: \n";
+				String tempOutput = "Average rounded down to nearest whole %: \n";
 
 				for (int i = 0; i < numOfNames; i++) {
 					total += Double.parseDouble((gradeBook[i][1]));
 				}
 				test1average = (Math.round(total) / numOfNames);
-				output = (tempOutput + "Test 1 Average: " + test1average + "\n");
+				output = (tempOutput + "Test 1 Average: " + test1average + "%\n");
 				tempOutput = output;
 				total = 0;
 
@@ -283,7 +301,7 @@ public class StudentGrades extends JFrame {
 				}
 
 				test2average = (Math.round(total) / numOfNames);
-				output = (tempOutput + "Test 2 Average: " + test2average + "\n");
+				output = (tempOutput + "Test 2 Average: " + test2average + "%\n");
 				tempOutput = output;
 				total = 0;
 
@@ -292,7 +310,7 @@ public class StudentGrades extends JFrame {
 				}
 
 				test3average = (Math.round(total) / numOfNames);
-				output = (tempOutput + "Test 3 Average: " + test3average + "\n");
+				output = (tempOutput + "Test 3 Average: " + test3average + "%\n");
 				tempOutput = output;
 				total = 0;
 
@@ -300,24 +318,25 @@ public class StudentGrades extends JFrame {
 					total += Double.parseDouble((gradeBook[i][4]));
 				}
 				test4average = (Math.round(total) / numOfNames);
-				output = (tempOutput + "Test 4 Average: " + test4average + "\n");			
-				
-				tempOutput = (output + "\n" + "Format: Name, Test 1, Test 2, Test 3, Test 4 \n ");
+				output = (tempOutput + "Test 4 Average: " + test4average + "%\n");
+
+				tempOutput = (output + "\n" + "Format: Name, Test 1, Test 2, Test 3, Test 4 \n");
 
 				for (int i = 0; i < numOfNames; i++) {
 					if ((gradeBook[numOfNames - 1][0] != null)) {
-						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "  " + gradeBook[i][2]
-								+ "  " + gradeBook[i][3] + "  " + gradeBook[i][4] + "\n");
+						output = (tempOutput + " " + gradeBook[i][0] + "  " + gradeBook[i][1] + "%   " + gradeBook[i][2]
+								+ "%   " + gradeBook[i][3] + "%   " + gradeBook[i][4] + "%\n");
 						txtOutput.setText(output);
 						tempOutput = output;
 					}
 
 				}
-				
+
 				txtOutput.setText(output);
 
 			}
 		});
+		
 		btnTestAverage.setBounds(323, 141, 134, 21);
 		contentPane.add(btnTestAverage);
 
@@ -350,6 +369,10 @@ public class StudentGrades extends JFrame {
 		txtLastName.setColumns(10);
 		txtLastName.setBounds(322, 62, 96, 19);
 		contentPane.add(txtLastName);
+		
+		
+		
+		
 
 	}
 }
